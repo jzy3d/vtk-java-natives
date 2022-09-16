@@ -26,6 +26,7 @@ public class Platform {
     public static final String PLATFORM_WIN64 = "windows_amd64";
     public static final String PLATFORM_LINUX64 = "linux_amd64";
     public static final String PLATFORM_MAC64 = "mac_x86_64";
+    public static final String PLATFORM_MACM1 = "mac_aarch64";
 
     public static boolean isLinux() {
         String p = getPlatform();

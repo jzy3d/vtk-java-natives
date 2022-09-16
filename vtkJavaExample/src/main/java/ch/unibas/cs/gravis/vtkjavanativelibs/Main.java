@@ -14,6 +14,7 @@ class Main {
         System.out.println("vtk-native version: " + MAJOR_VERSION + "." + MINOR_VERSION);
         System.out.println("Java version: " + System.getProperty("java.version"));
         System.out.println("Current platform: " + Platform.getPlatform());
+        
         if (Platform.isUnknown()) {
             exitWithError("Cannot determine the platform you are running on.");
         }
@@ -21,7 +22,7 @@ class Main {
         File nativeDir = new File(System.getProperty("java.io.tmpdir"));
         //File nativeDir = new File(System.getProperty("user.home") + File.separator +".nativelibs");
 
-        System.out.println("Will unpack to : " + nativeDir);
+        System.out.println("Will unpack libraries in : " + nativeDir);
 
         try {
             VtkNativeLibraries.initialize(nativeDir);

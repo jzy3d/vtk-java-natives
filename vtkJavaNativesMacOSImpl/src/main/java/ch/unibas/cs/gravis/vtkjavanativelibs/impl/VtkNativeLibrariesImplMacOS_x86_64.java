@@ -11,16 +11,16 @@ import ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibrariesImpl;
 import ch.unibas.cs.gravis.vtkjavanativelibs.Platform;
 
 /**
-  * Implementation of VtkNativeLibraries for LInux (64 bit)
+  * Implementation of VtkNativeLibraries for MacOS (64 bit)
   */ 
 @AutoService(VtkNativeLibrariesImpl.class)
-public class VtkNativeLibrariesImplMacOS implements VtkNativeLibrariesImpl {
+public class VtkNativeLibrariesImplMacOS_x86_64 implements VtkNativeLibrariesImpl {
 
-    public VtkNativeLibrariesImplMacOS() {
+    public VtkNativeLibrariesImplMacOS_x86_64() {
     }
 
     public String getName() {
-        return "VtkNativeLibrariesMacOS";
+        return "VtkNativeLibrariesMacOS_x86_64";
     }
 
 

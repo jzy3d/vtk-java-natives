@@ -1,8 +1,8 @@
 ThisBuild / organization := "ch.unibas.cs.gravis"
-ThisBuild / version      := "0.1.1"
+ThisBuild / version      := "0.1.2"
 ThisBuild / crossPaths := false
 ThisBuild / autoScalaLibrary := false
-ThisBuild / javacOptions ++= Seq("--release", "8") 
+ThisBuild / javacOptions ++= Seq("--release", "8")
 ThisBuild / versionScheme := Some("semver-spec")
 ThisBuild / homepage :=  Some(url("https://scalismo.org"))
 ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
@@ -24,7 +24,7 @@ ThisBuild / resolvers    := Seq(
 
 /*
  * dummy package to manage vtk.jar
- */   
+ */
 lazy val vtkJar = (project in file("vtkJar"))
     .settings(
         name := "vtkJavaNativesVtkJar",
@@ -54,7 +54,7 @@ lazy val vtkJavaNatives = (project in file("vtkJavaNatives"))
 
 /*
  *  Package with native libraries for win64
- */ 
+ */
 lazy val vtkJavaNativesWin64Impl = (project in file("vtkJavaNativesWin64Impl"))
     .dependsOn(vtkJavaNatives)
     .settings(
@@ -66,7 +66,7 @@ lazy val vtkJavaNativesWin64Impl = (project in file("vtkJavaNativesWin64Impl"))
 
 /*
  *  Package with native libraries for win64
- */ 
+ */
 lazy val vtkJavaNativesLinuxImpl = (project in file("vtkJavaNativesLinuxImpl"))
     .dependsOn(vtkJavaNatives)
     .settings(
@@ -83,44 +83,56 @@ lazy val vtkJavaNativesMacOSImpl = (project in file("vtkJavaNativesMacOSImpl"))
     )
   )
 
+  lazy val vtkJavaNativesMacOSM1Impl = (project in file("vtkJavaNativesMacOSM1Impl"))
+    .dependsOn(vtkJavaNatives)
+    .settings(
+      libraryDependencies ++= Seq(
+        "com.google.auto.service" % "auto-service" % "1.0.1"
+      )
+    )
+
 /*
  * User facing package to use native libraries on Windows
- */ 
+ */
 lazy val vtkJavaNativesWin64 = (project in file("vtkJavaNativesWin64"))
     .dependsOn(vtkJavaNatives, vtkJavaNativesWin64Impl)
     .aggregate(vtkJavaNatives, vtkJavaNativesWin64Impl)
 
 
 /*
- * User facing package to use native libraries on Windows
- */ 
+ * User facing package to use native libraries on Linux
+ */
 lazy val vtkJavaNativesLinux = (project in file("vtkJavaNativesLinux"))
     .dependsOn(vtkJavaNatives, vtkJavaNativesLinuxImpl)
     .aggregate(vtkJavaNatives, vtkJavaNativesLinuxImpl)
 
 /*
- * User facing package to use native libraries on Windows
+ * User facing package to use native libraries on MacOS / Intel
  */
 lazy val vtkJavaNativesMacOS = (project in file("vtkJavaNativesMacOS"))
   .dependsOn(vtkJavaNatives, vtkJavaNativesMacOSImpl)
   .aggregate(vtkJavaNatives, vtkJavaNativesMacOSImpl)
 
+/*
+ * User facing package to use native libraries on MacOS / M1
+ */
+lazy val vtkJavaNativesMacOSM1 = (project in file("vtkJavaNativesMacOSM1"))
+  .dependsOn(vtkJavaNatives, vtkJavaNativesMacOSM1Impl)
+  .aggregate(vtkJavaNatives, vtkJavaNativesMacOSM1Impl)
 
 
 /*
  * User facing package to use native libraries on Windows
- */ 
+ */
 lazy val vtkJavaNativesAll = (project in file("vtkJavaNativesAll"))
-    .dependsOn(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl)
-    .aggregate(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl)
+    .dependsOn(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl, vtkJavaNativesMacOSM1Impl)
+    .aggregate(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl, vtkJavaNativesMacOSM1Impl)
 
 
 
 /*
- * Main module (only used for testing) 
- */ 
+ * Main module (only used for testing)
+ */
 lazy val root = (project in file("."))
     .dependsOn(vtkJavaNativesAll)
     .aggregate(vtkJavaNativesAll)
-
-
