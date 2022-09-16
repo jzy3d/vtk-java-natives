@@ -14,13 +14,12 @@
 
 package ch.unibas.cs.gravis.vtkjavanativelibs;
 
-import com.jogamp.common.jvm.JNILibLoaderBase;
-
-import java.awt.*;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ServiceLoader;
+import com.jogamp.common.jvm.JNILibLoaderBase;
 
 
 public class VtkNativeLibraries {
@@ -32,7 +31,7 @@ public class VtkNativeLibraries {
 
 
   /**
-   * Initialize native library bundles.
+   * Initialize a native library bundle by detecting the one that match the platform architecture.
    *
    * @throws VtkJavaNativeLibraryException if anything goes wrong.
    */
@@ -52,22 +51,35 @@ public class VtkNativeLibraries {
     initialize(nativeLibraryBaseDirectory, impl);
   }
 
+  /**
+   * Initialize a given native library bundle by extracting it in a given directory.
+   *
+   * @throws VtkJavaNativeLibraryException if anything goes wrong.
+   */
   public static void initialize(File nativeLibraryBaseDirectory, VtkNativeLibrariesImpl impl)
       throws VtkJavaNativeLibraryException {
+
+    // Create the target directory if it does not exist
     File nativeLibraryDir = Util.createNativeDirectory(nativeLibraryBaseDirectory);
 
-    // // Loads mawt.so
+
+    // Loads mawt.so
     Toolkit.getDefaultToolkit();
-    // // Loads jawt.so - this seems to be required on some systems
+
+    // Loads jawt.so - this seems to be required on some systems
     try {
       System.loadLibrary("jawt");
     } catch (UnsatisfiedLinkError ignored) {
     }
 
+    // ---------------------------------
+    // Copy and load JOGL libraries one by one
+
     for (URL libraryUrl : impl.getJoglLibraries()) {
       String nativeName = libraryUrl.getFile();
       File file = new File(nativeLibraryDir,
           nativeName.substring(nativeName.lastIndexOf('/') + 1, nativeName.length()));
+
       try {
         Util.copyUrlToFile(libraryUrl, file);
       } catch (IOException e) {
@@ -86,10 +98,14 @@ public class VtkNativeLibraries {
       Runtime.getRuntime().load(file.getAbsolutePath());
     }
 
+    // ---------------------------------
+    // Copy and load VTK libraries one by one
+
     for (URL libraryUrl : impl.getVtkLibraries()) {
       String nativeName = libraryUrl.getFile();
       File file = new File(nativeLibraryDir,
           nativeName.substring(nativeName.lastIndexOf('/') + 1, nativeName.length()));
+
       try {
         Util.copyUrlToFile(libraryUrl, file);
       } catch (IOException e) {
@@ -98,6 +114,9 @@ public class VtkNativeLibraries {
 
       Runtime.getRuntime().load(file.getAbsolutePath());
     }
+
+
+    // vtkNativeLibrary.DisableOutputWindow(null);
   }
 
   /**
