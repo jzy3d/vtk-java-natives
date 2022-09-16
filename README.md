@@ -28,14 +28,18 @@ in the `src` directory.
 
 ## Build VTK Maven artifacts
 
-### Structure
-
 The project is divided in the following modules:
 
 * The logic for initialization and loading the libraries can be found in `vtkJavaNatvies`
 * `vtkJar` is a dummy module, whose purpose is to manage `vtk.jar` as a dependency
 * The modules `vtkJavaNativesPLATFORMImpl` are platform specific packages, which contain all the
   native libraries for the corresponding platform in the resource folder.
+
+There are several steps to build all, they are depicted here after
+* Unpack all JARs
+* Unpack all natives for each platform
+* Build all with maven
+* Deploy all to a maven repository
 
 
 ### Unpack all JARs containing compiled Java classes
@@ -92,8 +96,6 @@ wget -O target/vtk-macos-arm64.zip https://download.jzy3d.org/vtk/build/9.1.0/vt
 7z x target/vtk-macos-arm64.zip -otarget
 mv target/vtk-Darwin-arm64/* vtkJavaNativesMacOSM1Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/
 rm target/vtk-macos-arm64.zip
--ovtkJavaNativesMacOSImpl/src/main/resources/
-mv
 ```
 
 ###### Unpacking natives for Mac M1 : Gluegen
@@ -131,8 +133,11 @@ cd ../../../../../../../../../../
 ##### Unpackaing natives for Mac x86_64 : VTK
 
 ```
+rm -rf vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/*
 wget -O target/vtk-macos-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Darwin-x86_64-9.1.0-jdk11.zip
-7z x target/vtk-macos-x86_64.zip -ovtkJavaNativesMacOSImpl/src/main/resources/ vtk-Darwin-x86_64
+7z x target/vtk-macos-x86_64.zip -otarget
+mv target/vtk-Darwin-x86_64/* vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/
+rm target/vtk-macos-x86_64.zip
 ```
 
 ###### Unpacking natives for Mac x86_64 : Gluegen

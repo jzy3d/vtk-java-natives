@@ -52,7 +52,8 @@ public class TestVtkNativeLibrariesImplMacOS_x86_64 {
 
     VtkNativeLibraries.initialize(impl);
     
-    System.out.println("Run VTK to get its version : " + new vtk.vtkVersion().GetVTKVersion());
+    String version = new vtk.vtkVersion().GetVTKVersion();
+    Assert.assertEquals("9.1.0", version);
 
   }
 }
