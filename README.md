@@ -93,9 +93,10 @@ it can assert that libraries can be loaded.
 ```
 rm -rf vtkJavaNativesMacOSM1Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/*
 wget -O target/vtk-macos-arm64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Darwin-arm64-9.1.0-jdk11.zip
-7z x target/vtk-macos-arm64.zip -otarget
+7z x target/vtk-Darwin-arm64.zip -otarget
 mv target/vtk-Darwin-arm64/* vtkJavaNativesMacOSM1Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/
-rm target/vtk-macos-arm64.zip
+rm target/vtk-Darwin-arm64.zip
+rm -rf target/vtk-Darwin-arm64
 ```
 
 ###### Unpacking natives for Mac M1 : Gluegen
@@ -134,13 +135,16 @@ cd ../../../../../../../../../../
 
 ```
 rm -rf vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/*
-wget -O target/vtk-macos-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Darwin-x86_64-9.1.0-jdk11.zip
-7z x target/vtk-macos-x86_64.zip -otarget
+wget -O target/vtk-Darwin-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Darwin-x86_64-9.1.0-jdk11.zip
+7z x target/vtk-Darwin-x86_64.zip -otarget
 mv target/vtk-Darwin-x86_64/* vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/
-rm target/vtk-macos-x86_64.zip
+rm target/vtk-Darwin-x86_64.zip
+rm -rf target/vtk-Darwin-x86_64
 ```
 
 ###### Unpacking natives for Mac x86_64 : Gluegen
+
+The only difference with other platforms is the base folder
 
 ```
 cd vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
@@ -154,6 +158,8 @@ Then in IDE make src/main/resources/ a classpath folder
 
 
 ###### Unpacking natives for Mac x86_64 : JOGL
+
+The only difference with other platforms is the base folder
 
 ```
 cd vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
@@ -176,9 +182,92 @@ Then in IDE make src/main/resources/ a classpath folder
 ##### Unpackaing natives for Linux x86_64 : VTK
 
 ```
-wget -O target/vtk-linux.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Linux-x86_64-9.1.0-jdk11.zip
-7z x target/vtk-linux.zip -ovtkJavaNativesLinuxImpl/src/main/resources/  vtk-Linux-x86_64
+rm -rf vtkJavaNativesLinuxImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/*
+wget -O target/vtk-Linux-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Linux-x86_64-9.1.0-jdk11.zip
+7z x target/vtk-Linux-x86_64.zip -otarget
+mv target/vtk-Linux-x86_64/* vtkJavaNativesLinuxImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/
+rm target/vtk-Linux-x86_64.zip
+rm -rf target/vtk-Linux-x86_64
 ```
+
+###### Unpacking natives for Linux x86_64 : Gluegen
+
+The only difference with other platforms is the base folder and the jar to extract
+
+```
+cd vtkJavaNativesLinuxImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../gluegenJar/lib/gluegen-rt-natives-linux-amd64.jar
+cp natives/linux-amd64/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+
+###### Unpacking natives for Linux x86_64 : JOGL
+
+The only difference with other platforms is the base folder and the jar to extract
+
+```
+cd vtkJavaNativesLinuxImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../joglJar/lib/jogl-all-natives-linux-amd64.jar
+cp natives/linux-amd64/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+###### Verify Linux x86_64 bundle works
+
+* Run `TestVtkNativeLibrariesImplLinux_x86_64`
+
+
+##### Unpacking natives for Windows x86_64 : VTK
+
+```
+rm -rf vtkJavaNativesWin64Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/*
+wget -O target/vtk-Windows-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Windows-x86_64.zip
+7z x target/vtk-Windows-x86_64.zip -otarget
+mv target/vtk-Windows-x86_64/* vtkJavaNativesWin64Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/
+rm target/vtk-Windows-x86_64.zip
+rm -rf target/vtk-Windows-x86_64
+```
+
+###### Unpacking natives for Windows x86_64 : Gluegen
+
+The only difference with other platforms is the base folder and the jar to extract
+
+```
+cd vtkJavaNativesWin64Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../gluegenJar/lib/gluegen-rt-natives-windows-amd64.jar
+cp natives/Windows-amd64/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+
+###### Unpacking natives for Windows x86_64 : JOGL
+
+The only difference with other platforms is the base folder and the jar to extract
+
+```
+cd vtkJavaNativesWin64Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../joglJar/lib/jogl-all-natives-windows-amd64.jar
+cp natives/Windows-amd64/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+###### Verify Windows x86_64 bundle works
+
+* Run `TestVtkNativeLibrariesImplWindows_x86_64`
+
 
 ##### TODO later
 jar -xf ../../../../../../../../../joglJar/lib/jogl-all-natives-linux-amd64.jar
