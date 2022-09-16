@@ -3,7 +3,7 @@ package ch.unibas.cs.gravis.vtkjavanativelibs;
 import java.io.File;
 import java.util.ServiceLoader;
 
-public class DemoServiceProvider {
+public class Demo_SelectPlatform {
 
   public static void main(String[] args) {
     ServiceLoader<VtkNativeLibrariesImpl> implLoader =
