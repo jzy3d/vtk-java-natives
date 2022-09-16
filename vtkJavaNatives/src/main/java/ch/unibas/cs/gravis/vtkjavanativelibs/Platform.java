@@ -38,9 +38,13 @@ public class Platform {
         return p.equals(PLATFORM_WIN64) || p.equals(PLATFORM_WIN32);
     }
 
-    public static boolean isMac() {
+    public static boolean isMacx86_64() {
         return getPlatform().equals(PLATFORM_MAC64);
     }
+
+    public static boolean isMacArm64() {
+      return getPlatform().equals(PLATFORM_MACM1);
+  }
 
     public static boolean isUnknown() {
         return getPlatform().equals(PLATFORM_UNKNOWN);

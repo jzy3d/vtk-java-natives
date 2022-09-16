@@ -19,6 +19,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-generic</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.google.auto.service</groupId>
 			<artifactId>auto-service</artifactId>
 			<version>1.0.1</version>

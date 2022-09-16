@@ -99,9 +99,10 @@ public class VtkNativeLibraries {
       Runtime.getRuntime().load(file.getAbsolutePath());
     }
   }
-  
+
   /**
-   * Extract native libraries to the JVM defined temporary directory, retrieve through property "java.io.tmpdir"
+   * Extract native libraries to the JVM defined temporary directory, retrieve through property
+   * "java.io.tmpdir"
    * 
    * @return the temporary directory
    * @throws VtkJavaNativeLibraryException
@@ -111,7 +112,7 @@ public class VtkNativeLibraries {
     initialize(nativeDir);
     return nativeDir;
   }
-  
+
   public static File initialize(VtkNativeLibrariesImpl impl) throws VtkJavaNativeLibraryException {
     File nativeDir = getTemporaryDirectory();
     initialize(nativeDir, impl);
@@ -130,11 +131,19 @@ public class VtkNativeLibraries {
     return tokens[0];
   }
 
+  /**
+   * Select a platform matching the current platform and then load the binaries related to the
+   * chosen platform, or fail if the current platform is not supported.
+   * 
+   * @param platform
+   * @return
+   * @throws VtkJavaNativeLibraryException
+   */
   private static VtkNativeLibrariesImpl loadImplementation(String platform)
       throws VtkJavaNativeLibraryException {
     ServiceLoader<VtkNativeLibrariesImpl> implLoader =
         ServiceLoader.load(VtkNativeLibrariesImpl.class);
-    
+
     int k = 0;
     for (VtkNativeLibrariesImpl impl : implLoader) {
       k++;
@@ -144,8 +153,8 @@ public class VtkNativeLibraries {
     }
     // If we are still here, no module was found
     StringBuffer sb = new StringBuffer();
-    sb.append("Could not load implementation for platform '" + platform
-        + "' after evaluating "+ k +" implementations : \n");
+    sb.append("Could not load implementation for platform '" + platform + "' after evaluating " + k
+        + " implementations : \n");
 
     for (VtkNativeLibrariesImpl impl : implLoader) {
       sb.append(impl.getClass().getSimpleName() + " supporting " + impl.getSupportedPlatforms());

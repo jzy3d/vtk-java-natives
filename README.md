@@ -38,66 +38,157 @@ The project is divided in the following modules:
   native libraries for the corresponding platform in the resource folder.
 
 
-### Unpack all classes and native library files
-#### Unpacking GLUEGEN Jars (containing natives)
+### Unpack all JARs containing compiled Java classes
 
+Here we regenerate jars containing classes suitable for all platforms.
+
+#### Unpacking GLUEGEN Jars
+
+```
 mkdir gluegenJar/src/
 mkdir gluegenJar/src/main/
 mkdir gluegenJar/src/main/resources/
 cd gluegenJar/src/main/resources/
+```
 
-jar -xf ../../../lib/gluegen-rt-natives-linux-aarch64.jar
-jar -xf ../../../lib/gluegen-rt-natives-linux-amd64.jar
-jar -xf ../../../lib/gluegen-rt-natives-linux-armv6hf.jar
-jar -xf ../../../lib/gluegen-rt-natives-linux-i586.jar
-jar -xf ../../../lib/gluegen-rt-natives-macosx-universal.jar
-jar -xf ../../../lib/gluegen-rt-natives-windows-amd64.jar
-jar -xf ../../../lib/gluegen-rt-natives-windows-i586.jar
+#### Unpacking JOGL Jars
 
-Then in IDE make src/main/resources/ a classpath folder
-
-#### Unpacking JOGL Jars (containing natives)
-
+```
 mkdir joglJar/src/
 mkdir joglJar/src/main/
 mkdir joglJar/src/main/resources/
+
 cd joglJar/src/main/resources/
-
 jar -xf ../../../lib/jogl-all-v2.4.0-rc4.jar
+```
 
+#### Unpacking VTK Jar
+
+```
+mkdir vtkJar/src/
+mkdir vtkJar/src/main/
+mkdir vtkJar/src/main/resources/
+cd vtkJar/src/main/resources/
+jar -xf ../../../lib/vtk-9.1.0.jar
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+
+#### Unpacking Binaries
+
+Here we create one Jar per platform containing all natives : VTK, JOGL, GLUEGEN.
+
+After handling one platform, it is worth verifying that a unit test exists and that
+it can assert that libraries can be loaded.
+
+##### Unpacking natives for Mac M1
+
+###### Unpacking natives for Mac M1 : VTK libraries
+
+```
+rm -rf vtkJavaNativesMacOSM1Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/*
+wget -O target/vtk-macos-arm64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Darwin-arm64-9.1.0-jdk11.zip
+7z x target/vtk-macos-arm64.zip -otarget
+mv target/vtk-Darwin-arm64/* vtkJavaNativesMacOSM1Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl/
+rm target/vtk-macos-arm64.zip
+-ovtkJavaNativesMacOSImpl/src/main/resources/
+mv
+```
+
+###### Unpacking natives for Mac M1 : Gluegen
+
+```
+cd vtkJavaNativesMacOSM1Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../gluegenJar/lib/gluegen-rt-natives-macosx-universal.jar
+cp natives/macosx-universal/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+
+###### Unpacking natives for Mac M1 : JOGL
+
+```
+cd vtkJavaNativesMacOSM1Impl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../joglJar/lib/jogl-all-natives-macosx-universal.jar
+cp natives/macosx-universal/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+###### Verify Mac M1 bundle works
+
+* Run `TestVtkNativeLibrariesImplMacOS_M1`
+* Run `DemoVtkNativeLibrariesImplMacOS_M1`
+
+
+
+
+
+##### Unpackaing natives for Mac x86_64 : VTK
+
+```
+wget -O target/vtk-macos-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Darwin-x86_64-9.1.0-jdk11.zip
+7z x target/vtk-macos-x86_64.zip -ovtkJavaNativesMacOSImpl/src/main/resources/ vtk-Darwin-x86_64
+```
+
+###### Unpacking natives for Mac x86_64 : Gluegen
+
+```
+cd vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../gluegenJar/lib/gluegen-rt-natives-macosx-universal.jar
+cp natives/macosx-universal/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+
+###### Unpacking natives for Mac x86_64 : JOGL
+
+```
+cd vtkJavaNativesMacOSImpl/src/main/resources/ch/unibas/cs/gravis/vtkjavanativelibs/impl
+jar -xf ../../../../../../../../../../joglJar/lib/jogl-all-natives-macosx-universal.jar
+cp natives/macosx-universal/* ./
+rm -rf natives
+cd ../../../../../../../../../../
+```
+
+Then in IDE make src/main/resources/ a classpath folder
+
+###### Verify Mac x86_64 bundle works
+
+* Run `TestVtkNativeLibrariesImplMacOS_x86_64`
+* Run `DemoVtkNativeLibrariesImplMacOS_x86_64`
+
+
+
+
+##### Unpackaing natives for Linux x86_64 : VTK
+
+```
+wget -O target/vtk-linux.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Linux-x86_64-9.1.0-jdk11.zip
+7z x target/vtk-linux.zip -ovtkJavaNativesLinuxImpl/src/main/resources/  vtk-Linux-x86_64
+```
+
+##### TODO later
+jar -xf ../../../../../../../../../joglJar/lib/jogl-all-natives-linux-amd64.jar
 jar -xf ../../../lib/jogl-all-natives-linux-aarch64.jar
-jar -xf ../../../lib/jogl-all-natives-linux-amd64.jar
 jar -xf ../../../lib/jogl-all-natives-linux-armv6hf.jar
 jar -xf ../../../lib/jogl-all-natives-linux-i586.jar
 jar -xf ../../../lib/jogl-all-natives-macosx-universal.jar
 jar -xf ../../../lib/jogl-all-natives-windows-amd64.jar
 jar -xf ../../../lib/jogl-all-natives-windows-i586.jar
 
-Then in IDE make src/main/resources/ a classpath folder
-
-#### Unpacking VTK Jar
-
-mkdir vtkJar/src/
-mkdir vtkJar/src/main/
-mkdir vtkJar/src/main/resources/
-cd vtkJar/src/main/resources/
-
-jar -xf ../../../lib/vtk-9.1.0.jar
 
 Then in IDE make src/main/resources/ a classpath folder
 
 
-#### Unpacking VTK binaries
-
-
-
-mkdir target
-
-wget -O target/vtk-linux.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Linux-x86_64-9.1.0-jdk11.zip
-7z x target/vtk-linux.zip -ovtkJavaNativesLinuxImpl/src/main/resources/  vtk-Linux-x86_64
-
-wget -O target/vtk-macos-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/vtk-Darwin-x86_64-9.1.0-jdk11.zip
-7z x target/vtk-macos-x86_64.zip -ovtkJavaNativesLinuxImpl/src/main/resources/ vtk-Darwin-x86_64
+#### List of VTK 9.1 libs
 
 | OS      | OS Versions   | CPU          | Java       | VTK | Archive                        |
 |---------|---------------|--------------|------------|-----|--------------------------------|
@@ -111,7 +202,3 @@ wget -O target/vtk-macos-x86_64.zip https://download.jzy3d.org/vtk/build/9.1.0/v
 #### Add more platform build
 
 The binaries in this project are listed [here](https://github.com/jzy3d/vtk-java-wrapper).
-
-
-https://maven.apache.org/plugins/maven-dependency-plugin/unpack-mojo.html
-https://maven.apache.org/plugins/maven-dependency-plugin/unpack-dependencies-mojo.html
