@@ -18,7 +18,11 @@ class Main {
             exitWithError("Cannot determine the platform you are running on.");
         }
 
-        File nativeDir = new File(System.getProperty("user.home") + File.separator +".nativelibs");
+        File nativeDir = new File(System.getProperty("java.io.tmpdir"));
+        //File nativeDir = new File(System.getProperty("user.home") + File.separator +".nativelibs");
+
+        System.out.println("Will unpack to : " + nativeDir);
+
         try {
             VtkNativeLibraries.initialize(nativeDir);
             System.out.println("Initialization done, ");

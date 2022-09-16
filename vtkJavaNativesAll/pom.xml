@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.jzy3d</groupId>
+		<artifactId>vtk-java</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>vtk-java-all</artifactId>
+	<name>VTK Java Classes</name>
+
+	<dependencies>
+
+		<!-- OpenGL Java Bindings -->
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-jogamp-jogl-2.4-rc4</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-jogamp-gluegen-2.4-rc4</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- The main VTK Jar -->
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-generic</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- The platform selection Jar -->
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-selector</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- The platform dedicated jars -->
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-linux-x86-64</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-macos-x86-64</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-macos-m1</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>vtk-java-windows-x86-64</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

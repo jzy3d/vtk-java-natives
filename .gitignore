@@ -10,3 +10,19 @@ out/*
 **/*.so
 **/*.exe
 *.log
+
+.bsp
+.vscode
+.DS_Store
+
+.project
+.classpath
+.settings
+
+
+gluegenJar/src/
+joglJar/src/
+vtkJar/src/
+
+# Refuse to add all binaries and compiled classes
+**/src/main/resources
