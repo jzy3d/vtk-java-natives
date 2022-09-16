@@ -296,3 +296,14 @@ Then in IDE make src/main/resources/ a classpath folder
 #### Add more platform build
 
 The binaries in this project are listed [here](https://github.com/jzy3d/vtk-java-wrapper).
+
+#### Troubleshooting
+
+Exception stating the following means that the detected architecture is ARM (e.g. Apple M1) but that you run on JVM for Intel x86_64 which won't be able to load libraries built for ARM.
+
+```
+mach-o, but wrong architecture
+```
+
+Solution 1 : use a JVM for ARM (Azul)
+Solution 2 : force x86_64 at load time (`VtkNativeLibraries.initialize(new VtkNativeLibrariesImplMacOS_x86_64()`);

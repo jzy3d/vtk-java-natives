@@ -12,22 +12,18 @@
 	<name>VTK Java MacOS M1</name>
 
 	<dependencies>
+		<!-- To get the platform interface and be eligible to platform discovery -->
 		<dependency>
 			<groupId>org.jzy3d</groupId>
 			<artifactId>vtk-java-selector</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
+		<!-- To get VTK main jar and run some tests -->
 		<dependency>
 			<groupId>org.jzy3d</groupId>
 			<artifactId>vtk-java-generic</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.auto.service</groupId>
-			<artifactId>auto-service</artifactId>
-			<version>1.0.1</version>
 		</dependency>
 
 	</dependencies>

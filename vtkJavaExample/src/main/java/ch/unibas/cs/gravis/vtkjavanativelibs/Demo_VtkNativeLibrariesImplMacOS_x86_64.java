@@ -18,11 +18,7 @@ public class Demo_VtkNativeLibrariesImplMacOS_x86_64 {
     System.out.println("Java version: " + System.getProperty("java.version"));
     System.out.println("Current platform: " + Platform.getPlatform());
 
-    VtkNativeLibrariesImplMacOS_x86_64 impl = new VtkNativeLibrariesImplMacOS_x86_64();
-
-    /*
-     * for(URL url : impl.getJoglLibraries()) { System.out.println("JOGL Libraries : " + url); }
-     */
+    VtkNativeLibrariesImpl impl = new VtkNativeLibrariesImplMacOS_x86_64();
 
     VtkNativeLibraries.initialize(impl);
     
