@@ -28,6 +28,8 @@ public class VtkNativeLibraries {
    */
   public static final int MAJOR_VERSION = 0;
   public static final int MINOR_VERSION = 1;
+  
+  public static boolean debug = true;
 
 
   /**
@@ -39,16 +41,24 @@ public class VtkNativeLibraries {
       throws VtkJavaNativeLibraryException {
 
 
+    VtkNativeLibrariesImpl impl = detectPlatform();
+    
+    initialize(nativeLibraryBaseDirectory, impl);
+  }
+
+  public static VtkNativeLibrariesImpl detectPlatform() throws VtkJavaNativeLibraryException {
     String platform = Platform.getPlatform();
 
+    if(debug)
+      System.out.println("Running on platform : " + platform);
+    
     VtkNativeLibrariesImpl impl = loadImplementation(platform);
 
     if (!impl.getSupportedPlatforms().contains(platform)) {
       throw new VtkJavaNativeLibraryException(
           "VtkNativeLibraries does not support platform " + platform);
     }
-
-    initialize(nativeLibraryBaseDirectory, impl);
+    return impl;
   }
 
   /**
@@ -58,9 +68,15 @@ public class VtkNativeLibraries {
    */
   public static void initialize(File nativeLibraryBaseDirectory, VtkNativeLibrariesImpl impl)
       throws VtkJavaNativeLibraryException {
-
+    
+    if(debug)
+      System.out.println("Using natives provided by " + impl.getClass().getSimpleName());
+    
     // Create the target directory if it does not exist
     File nativeLibraryDir = Util.createNativeDirectory(nativeLibraryBaseDirectory);
+
+    if(debug)
+      System.out.println("Extract to " + nativeLibraryDir);
 
 
     // Loads mawt.so
