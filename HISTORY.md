@@ -4,7 +4,7 @@
 
 ```
 <dependency>
-    <groupId>ch.unibas.cs.gravis</groupId>
+    <groupId>org.jzy3d</groupId>
     <artifactId>vtk-java-all</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 </dependency>
