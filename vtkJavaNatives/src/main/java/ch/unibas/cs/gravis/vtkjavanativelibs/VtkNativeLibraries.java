@@ -73,6 +73,7 @@ public class VtkNativeLibraries {
       System.out.println("VtkNativeLibraries : Using natives provided by " + impl.getClass().getSimpleName());
     
     // Create the target directory if it does not exist
+    nativeLibraryBaseDirectory = new File(nativeLibraryBaseDirectory.getAbsolutePath()+"/"+impl.getClass().getSimpleName());
     File nativeLibraryDir = Util.createNativeDirectory(nativeLibraryBaseDirectory);
 
     if(debug)
