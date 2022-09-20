@@ -17,13 +17,35 @@ This brings VTK 9.1 libraries for Windows, Linux and macOS+Intel (M1 will come l
 Unpacking and loading native libraries requires this line at the beginning of a program :
 
 ```java
-VtkNativeLibraries.initialize(new File(System.getProperty("java.io.tmpdir")));
+VtkNativeLibraries.initialize();
 ```
 
-Using a temporary directory is not compulsory, this is just an example.
+Unpacking libraries to a user chosen directory can be done as follow
 
-An example of how this library can be used is given in ```Main.java```, which is located
-in the `src` directory.
+```java
+VtkNativeLibraries.initialize(new File(System.getProperty("./target/natives")));
+```
+
+Forcing a particular platform native extraction can be done as follow
+
+```java
+VtkNativeLibraries.initialize(new VtkNativeLibrariesImplMacOS_x86_64());
+```
+
+or even
+
+```java
+VtkNativeLibraries.initialize(new File(System.getProperty("./target/natives/mac_x86_64")), new VtkNativeLibrariesImplMacOS_x86_64());
+```
+
+To enable or disable console output of extraction
+
+```java
+VtkNativeLibraries.debug = true;
+```
+
+
+Examples of how this library can be used are given in the vtkJavaExample/src/main/java directory.
 
 
 ## Build VTK Maven artifacts
@@ -268,19 +290,21 @@ Then in IDE make src/main/resources/ a classpath folder
 
 * Run `TestVtkNativeLibrariesImplWindows_x86_64`
 
-
-##### TODO later
-jar -xf ../../../../../../../../../joglJar/lib/jogl-all-natives-linux-amd64.jar
-jar -xf ../../../lib/jogl-all-natives-linux-aarch64.jar
-jar -xf ../../../lib/jogl-all-natives-linux-armv6hf.jar
-jar -xf ../../../lib/jogl-all-natives-linux-i586.jar
-jar -xf ../../../lib/jogl-all-natives-macosx-universal.jar
-jar -xf ../../../lib/jogl-all-natives-windows-amd64.jar
-jar -xf ../../../lib/jogl-all-natives-windows-i586.jar
-
-
 Then in IDE make src/main/resources/ a classpath folder
 
+### Build and test the jars
+
+```
+mvn clean install
+```
+
+### Deploy the jars (to Jzy3D repository)
+
+```
+mvn deploy
+```
+
+## Other information
 
 #### List of VTK 9.1 libs
 
