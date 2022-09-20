@@ -50,7 +50,7 @@ public class VtkNativeLibraries {
     String platform = Platform.getPlatform();
 
     if(debug)
-      System.out.println("Running on platform : " + platform);
+      System.out.println("VtkNativeLibraries : Running on platform : " + platform);
     
     VtkNativeLibrariesImpl impl = loadImplementation(platform);
 
@@ -70,13 +70,13 @@ public class VtkNativeLibraries {
       throws VtkJavaNativeLibraryException {
     
     if(debug)
-      System.out.println("Using natives provided by " + impl.getClass().getSimpleName());
+      System.out.println("VtkNativeLibraries : Using natives provided by " + impl.getClass().getSimpleName());
     
     // Create the target directory if it does not exist
     File nativeLibraryDir = Util.createNativeDirectory(nativeLibraryBaseDirectory);
 
     if(debug)
-      System.out.println("Extract to " + nativeLibraryDir);
+      System.out.println("VtkNativeLibraries : Start extracting natives to " + nativeLibraryDir);
 
 
     // Loads mawt.so
@@ -130,6 +130,10 @@ public class VtkNativeLibraries {
 
       Runtime.getRuntime().load(file.getAbsolutePath());
     }
+    
+    if(debug)
+      System.out.println("VtkNativeLibraries : Done extracting natives to " + nativeLibraryDir);
+
 
 
     // vtkNativeLibrary.DisableOutputWindow(null);

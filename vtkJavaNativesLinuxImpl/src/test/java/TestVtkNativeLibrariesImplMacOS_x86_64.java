@@ -14,7 +14,7 @@ public class TestVtkNativeLibrariesImplMacOS_x86_64 {
 
     int k = 0;
     for(URL url : impl.getVtkLibraries()) {
-      System.out.println("VTK Library " + k + " : " + url);
+      //System.out.println("VTK Library " + k + " : " + url);
       Assert.assertNotNull(url);
       k++;
     }
@@ -25,7 +25,7 @@ public class TestVtkNativeLibrariesImplMacOS_x86_64 {
     
     k = 0;
     for(URL url : impl.getJoglLibraries()) {
-      System.out.println("JOGL Library " + k + " : " + url);
+      //System.out.println("JOGL Library " + k + " : " + url);
       Assert.assertNotNull(url);
       k++;
     }

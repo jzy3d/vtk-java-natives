@@ -1,5 +1,6 @@
 import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MAJOR_VERSION;
 import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MINOR_VERSION;
+import java.io.File;
 import java.net.URL;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class TestVtkNativeLibrariesImplMacOS_M1 {
 
     int k = 0;
     for(URL url : impl.getVtkLibraries()) {
-      System.out.println("VTK Library " + k + " : " + url);
+      //System.out.println("VTK Library " + k + " : " + url);
       Assert.assertNotNull(url);
       k++;
     }
@@ -30,7 +31,7 @@ public class TestVtkNativeLibrariesImplMacOS_M1 {
     
     k = 0;
     for(URL url : impl.getJoglLibraries()) {
-      System.out.println("JOGL Library " + k + " : " + url);
+      //System.out.println("JOGL Library " + k + " : " + url);
       Assert.assertNotNull(url);
       k++;
     }
@@ -49,13 +50,13 @@ public class TestVtkNativeLibrariesImplMacOS_M1 {
 
     VtkNativeLibrariesImplMacOS_M1 impl = new VtkNativeLibrariesImplMacOS_M1();
 
-    VtkNativeLibraries.initialize(impl);
+    VtkNativeLibraries.initialize(new File("./target/natives/m1/"), impl);
     
     String version = new vtk.vtkVersion().GetVTKVersion();
-    Assert.assertEquals("9.1.0", version);
 
     System.out.println("VTK version: " + version);
 
+    Assert.assertEquals("9.1.0", version);
   }
 
 }
