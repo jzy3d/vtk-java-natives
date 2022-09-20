@@ -1,12 +1,12 @@
 import java.net.URL;
 import org.junit.Assert;
 import org.junit.Test;
-import ch.unibas.cs.gravis.vtkjavanativelibs.impl.VtkNativeLibrariesImplLinux;
+import ch.unibas.cs.gravis.vtkjavanativelibs.impl.VtkNativeLibrariesImplLinux_x86_64;
 
-public class TestVtkNativeLibrariesImplMacOS_x86_64 {
+public class TestVtkNativeLibrariesImplLinux_x86_64 {
   @Test
   public void testLibResourceCanBeListed() {
-    VtkNativeLibrariesImplLinux impl = new VtkNativeLibrariesImplLinux();
+    VtkNativeLibrariesImplLinux_x86_64 impl = new VtkNativeLibrariesImplLinux_x86_64();
     
     
     // Check VTK    

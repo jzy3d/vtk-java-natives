@@ -14,9 +14,9 @@ import ch.unibas.cs.gravis.vtkjavanativelibs.Platform;
   * Implementation of VtkNativeLibraries for LInux (64 bit)
   */ 
 @AutoService(VtkNativeLibrariesImpl.class)
-public class VtkNativeLibrariesImplLinux implements VtkNativeLibrariesImpl {
+public class VtkNativeLibrariesImplLinux_x86_64 implements VtkNativeLibrariesImpl {
 
-    public VtkNativeLibrariesImplLinux() {
+    public VtkNativeLibrariesImplLinux_x86_64() {
     }
 
     public String getName() {

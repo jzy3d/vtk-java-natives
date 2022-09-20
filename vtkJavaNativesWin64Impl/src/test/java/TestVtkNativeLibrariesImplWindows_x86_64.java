@@ -3,7 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import ch.unibas.cs.gravis.vtkjavanativelibs.impl.VtkNativeLibrariesImplWin64;
 
-public class TestVtkNativeLibrariesImplMacOS_x86_64 {
+public class TestVtkNativeLibrariesImplWindows_x86_64 {
   @Test
   public void testLibResourceCanBeListed() {
     VtkNativeLibrariesImplWin64 impl = new VtkNativeLibrariesImplWin64();
