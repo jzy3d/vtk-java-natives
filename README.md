@@ -7,9 +7,9 @@ It automatically extracts and loads all the required native libraries through ma
 
 ```xml
 <dependency>
-	<groupId>ch.unibas.cs.gravis</groupId>
-	<artifactId>vtkjavanativesall</artifactId>
-	<version>0.1.1</version>
+    <groupId>org.jzy3d</groupId>
+    <artifactId>vtk-java-all</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 </dependency>
 ```
 This brings VTK 9.1 libraries for Windows, Linux and macOS+Intel (M1 will come later). It also brings JOGL and Glugen 2.4-rc4.
