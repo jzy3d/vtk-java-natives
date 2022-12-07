@@ -13,7 +13,6 @@ public class Demo_SelectPlatform {
     for (VtkNativeLibrariesImpl impl : implLoader) {
       k++;
       System.out.println(impl);
-      
       System.out.println(impl.getJoglLibraries());
       //System.out.println(impl.getVtkLibraries());
 
@@ -26,7 +25,7 @@ public class Demo_SelectPlatform {
     String classpath = System.getProperty("java.class.path");
     
     
-    // Get all class path enteries in a string array
+    // Get all class path entries in a string array
     /*String[] classpathEntries = classpath.split(File.pathSeparator);
     for(String e: classpathEntries) {
       System.out.println(e);

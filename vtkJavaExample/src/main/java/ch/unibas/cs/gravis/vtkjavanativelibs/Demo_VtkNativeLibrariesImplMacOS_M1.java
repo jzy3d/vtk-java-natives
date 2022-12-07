@@ -15,14 +15,12 @@ public class Demo_VtkNativeLibrariesImplMacOS_M1 {
 
   public static void main(String[] args) throws VtkJavaNativeLibraryException {
     System.out.println("vtk-native version: " + MAJOR_VERSION + "." + MINOR_VERSION);
-    System.out.println("Java version: " + System.getProperty("java.version"));
+    System.out.println("Java Vendor: " + System.getProperty("java.vendor"));
+    System.out.println("Java Version: " + System.getProperty("java.version"));
+    System.out.println("Java Home: " + System.getProperty("java.home"));
     System.out.println("Current platform: " + Platform.getPlatform());
 
     VtkNativeLibrariesImplMacOS_M1 impl = new VtkNativeLibrariesImplMacOS_M1();
-
-    /*
-     * for(URL url : impl.getJoglLibraries()) { System.out.println("JOGL Libraries : " + url); }
-     */
 
     VtkNativeLibraries.initialize(impl);
     

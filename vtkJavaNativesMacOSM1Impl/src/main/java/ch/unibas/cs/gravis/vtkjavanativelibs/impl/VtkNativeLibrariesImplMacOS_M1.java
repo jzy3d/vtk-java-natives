@@ -11,7 +11,7 @@ import ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibrariesImpl;
 import ch.unibas.cs.gravis.vtkjavanativelibs.Platform;
 
 /**
-  * Implementation of VtkNativeLibraries for LInux (64 bit)
+  * Implementation of VtkNativeLibraries for MacOS M1.
   */ 
 @AutoService(VtkNativeLibrariesImpl.class)
 public class VtkNativeLibrariesImplMacOS_M1 implements VtkNativeLibrariesImpl {
@@ -71,6 +71,7 @@ public class VtkNativeLibrariesImplMacOS_M1 implements VtkNativeLibrariesImpl {
         List<String> libraryList = new LinkedList<>();
 
 
+        //libraryList.add("libvtkWrappingTools-9.1.1.dylib");
         libraryList.add("libvtkWrappingTools-9.1.dylib");
         libraryList.add("libvtkdoubleconversion-9.1.dylib");
         libraryList.add("libvtkexpat-9.1.dylib");

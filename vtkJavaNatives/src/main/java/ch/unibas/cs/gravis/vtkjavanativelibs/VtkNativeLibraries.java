@@ -18,6 +18,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ServiceLoader;
 import com.jogamp.common.jvm.JNILibLoaderBase;
 
@@ -26,8 +27,8 @@ public class VtkNativeLibraries {
   /**
    * VERSION INFORMATION ===================
    */
-  public static final int MAJOR_VERSION = 0;
-  public static final int MINOR_VERSION = 1;
+  public static final int MAJOR_VERSION = 1;
+  public static final int MINOR_VERSION = 0;
   
   public static boolean debug = true;
 
@@ -98,7 +99,7 @@ public class VtkNativeLibraries {
           nativeName.substring(nativeName.lastIndexOf('/') + 1, nativeName.length()));
 
       try {
-        Util.copyUrlToFile(libraryUrl, file);
+        Util.copyUrlToFileOrVerifyDigest(libraryUrl, file);
       } catch (IOException e) {
         throw new VtkJavaNativeLibraryException("Error while copying library " + nativeName, e);
       }
@@ -118,19 +119,34 @@ public class VtkNativeLibraries {
     // ---------------------------------
     // Copy and load VTK libraries one by one
 
+    int n = impl.getVtkLibraries().size();
+    int k = 0;
+    int p = 0;
+    
+    System.out.println("Progress (" + n + " libs)");
+    
     for (URL libraryUrl : impl.getVtkLibraries()) {
+      
+      // Create target file name for current library
       String nativeName = libraryUrl.getFile();
       File file = new File(nativeLibraryDir,
           nativeName.substring(nativeName.lastIndexOf('/') + 1, nativeName.length()));
 
+      // Copy library to disk
       try {
-        Util.copyUrlToFile(libraryUrl, file);
+        Util.copyUrlToFileOrVerifyDigest(libraryUrl, file);
       } catch (IOException e) {
         throw new VtkJavaNativeLibraryException("Error while copying library " + nativeName, e);
       }
 
+      // Load the library
       Runtime.getRuntime().load(file.getAbsolutePath());
+      
+      // Progress
+      k++;
+      System.out.print("*");
     }
+    System.out.println();
     
     if(debug)
       System.out.println("VtkNativeLibraries : Done extracting natives to " + nativeLibraryDir);
@@ -172,8 +188,9 @@ public class VtkNativeLibraries {
   }
 
   /**
-   * Select a platform matching the current platform and then load the binaries related to the
-   * chosen platform, or fail if the current platform is not supported.
+   * Select an implementation platform matching the current platform.
+   * 
+   * Throws an exception if the current platform is not supported (or if no implementation can be loaded).
    * 
    * @param platform
    * @return
@@ -197,7 +214,7 @@ public class VtkNativeLibraries {
         + " implementations : \n");
 
     for (VtkNativeLibrariesImpl impl : implLoader) {
-      sb.append(impl.getClass().getSimpleName() + " supporting " + impl.getSupportedPlatforms());
+      sb.append(impl.getClass().getSimpleName() + " supporting " + impl.getSupportedPlatforms() + "\n");
     }
     throw new VtkJavaNativeLibraryException(sb.toString());
 

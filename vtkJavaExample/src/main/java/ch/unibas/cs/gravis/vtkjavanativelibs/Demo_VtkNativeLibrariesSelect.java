@@ -2,7 +2,7 @@ package ch.unibas.cs.gravis.vtkjavanativelibs;
 
 import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MAJOR_VERSION;
 import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MINOR_VERSION;
-import ch.unibas.cs.gravis.vtkjavanativelibs.impl.VtkNativeLibrariesImplMacOS_x86_64;
+import ch.unibas.cs.gravis.vtkjavanativelibs.impl.VtkNativeLibrariesImplMacOS_M1;
 
 /**
  * In case of exception with "mach-o, but wrong architecture", this means you try to load M1 libs on
@@ -11,7 +11,7 @@ import ch.unibas.cs.gravis.vtkjavanativelibs.impl.VtkNativeLibrariesImplMacOS_x8
  * @author martin
  *
  */
-public class Demo_VtkNativeLibrariesImplMacOS_x86_64 {
+public class Demo_VtkNativeLibrariesSelect {
 
   public static void main(String[] args) throws VtkJavaNativeLibraryException {
     System.out.println("vtk-native version: " + MAJOR_VERSION + "." + MINOR_VERSION);
@@ -20,9 +20,7 @@ public class Demo_VtkNativeLibrariesImplMacOS_x86_64 {
     System.out.println("Java Home: " + System.getProperty("java.home"));
     System.out.println("Current platform: " + Platform.getPlatform());
 
-    VtkNativeLibrariesImpl impl = new VtkNativeLibrariesImplMacOS_x86_64();
-
-    VtkNativeLibraries.initialize(impl);
+    VtkNativeLibraries.initialize();
     
     System.out.println("Run VTK to get its version : " + new vtk.vtkVersion().GetVTKVersion());
 

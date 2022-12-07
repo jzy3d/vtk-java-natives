@@ -68,13 +68,15 @@ public class Util {
 		return digest;
 	}
 
-	public static void copyUrlToFile(URL url, File file) throws IOException, VtkJavaNativeLibraryException {
+	public static void copyUrlToFileOrVerifyDigest(URL url, File file) throws IOException, VtkJavaNativeLibraryException {
 
 		BufferedInputStream is = new BufferedInputStream(url.openStream());
 		if (file.exists() && Arrays.equals(getDigest(url), getDigest(file.toURI().toURL()))) {
 			// nothing to do, we just return
 			return;
 		}
+		
+		//System.out.println(url + " " + file);
 
 		// otherwise we copy the file from the jar to the path.
 		BufferedOutputStream os = new BufferedOutputStream(
